@@ -19,12 +19,46 @@ public class DBHelper extends SQLiteOpenHelper {
         Log.d(LOG_TAG, "onCreate database");
 
         //создадим таблицу catalogs
+        db.execSQL("create table catalogs("
+                        + "id integer primary key autoincrement,"
+                        + "active integer,"
+                        + "name text,"
+                        + "parent_id integer,"
+                        + "countProducts integer,"
+                        + ");");
 
         //создадим таблицу products
+        db.execSQL("create table products("
+                + "id integer primary key autoincrement,"
+                + "active integer,"
+                + "name text,"
+                + "description text,"
+                + "weight integer,"
+                + "catalog_1 integer,"
+                + "catalog_2 integer,"
+                + "main_view integer,"
+                + "imageLink text,"
+                + ");");
 
         //создадим таблицу orders
+        db.execSQL("create table products("
+                + "id integer primary key autoincrement,"
+                + "price real,"
+                + "created_at integer,"
+                + "number_person integer,"
+                + "delivery integer,"
+                + "orderClientName text,"
+                + "orderClientPhone text,"
+                + "orderClientAddress text,"
+                + ");");
 
         //создадим таблицу orderProducts
+        db.execSQL("create table products("
+                + "id integer primary key autoincrement,"
+                + "product_id integer,"
+                + "amount real,"
+                + "order_id integer,"
+                + ");");
     }
 
     @Override

@@ -1,9 +1,11 @@
 package ru.serv_techno.delivery_st;
 
+import com.orm.SugarRecord;
+
 /**
  * Created by Maxim on 18.08.2016.
  */
-public class Catalog {
+public class Catalog extends SugarRecord{
 
     int id;
     int active;
@@ -11,12 +13,15 @@ public class Catalog {
     int parent_id;
     int countProducts;
 
-    Catalog(int _id, int _active, String _name, int _parent_id, int _countProducts){
-        id = _id;
-        active = _active;
-        name = _name;
-        parent_id = _parent_id;
-        countProducts = _countProducts;
+    public Catalog() {
+    }
+
+    public Catalog(int id, int active, String name, int parent_id, int countProducts) {
+        this.id = id;
+        this.active = active;
+        this.name = name;
+        this.parent_id = parent_id;
+        this.countProducts = countProducts;
     }
 
 }

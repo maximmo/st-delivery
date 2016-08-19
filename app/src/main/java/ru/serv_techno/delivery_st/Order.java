@@ -7,26 +7,26 @@ import com.orm.SugarRecord;
  */
 public class Order extends SugarRecord{
 
-    int id;
+    int extid;
     float price;
-    int created_at;
-    int number_person;
+    int createdat;
+    int numberperson;
     int delivery;
-    String orderClientName;
-    String orderClientPhone;
-    String orderClientAddress;
+    String orderclientname;
+    String orderclientphone;
+    String orderclientaddress;
 
     public Order() {
     }
 
-    public Order(int id, float price, int created_at, int number_person, int delivery, String orderClientName, String orderClientPhone, String orderClientAddress) {
-        this.id = id;
+    public Order(int extid, float price, int createdat, int numberperson, int delivery, String orderclientname, String orderclientphone, String orderclientaddress) {
+        this.extid = extid;
         this.price = price;
-        this.created_at = created_at;
-        this.number_person = number_person;
+        this.createdat = createdat;
+        this.numberperson = numberperson;
         this.delivery = delivery;
-        this.orderClientName = orderClientName;
-        this.orderClientPhone = orderClientPhone;
-        this.orderClientAddress = orderClientAddress;
+        this.orderclientname = orderclientname;
+        this.orderclientphone = orderclientphone;
+        this.orderclientaddress = orderclientaddress;
     }
 }

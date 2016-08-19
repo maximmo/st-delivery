@@ -7,21 +7,21 @@ import com.orm.SugarRecord;
  */
 public class Catalog extends SugarRecord{
 
-    int id;
+    int extid;
     int active;
     String name;
-    int parent_id;
-    int countProducts;
+    int parentid;
+    int countproducts;
 
     public Catalog() {
     }
 
-    public Catalog(int id, int active, String name, int parent_id, int countProducts) {
-        this.id = id;
+    public Catalog(int extid, int active, String name, int parentid, int countproducts) {
+        this.extid = extid;
         this.active = active;
         this.name = name;
-        this.parent_id = parent_id;
-        this.countProducts = countProducts;
+        this.parentid = parentid;
+        this.countproducts = countproducts;
     }
 
 }

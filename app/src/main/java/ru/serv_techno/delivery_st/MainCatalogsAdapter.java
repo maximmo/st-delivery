@@ -42,7 +42,7 @@ public class MainCatalogsAdapter extends BaseAdapter{
         return position;
     }
 
-    Catalog getCatalog(int position) {
+    public Catalog getCatalog(int position) {
         return ((Catalog) getItem(position));
     }
 

@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="90sp"
+        android:layout_marginTop="5sp"
+        android:background="@color/background_material_light">
+
+        <ImageView
+            android:id="@+id/ItemMainViewImage"
+            android:src="@drawable/icon_snoopy"
+            android:layout_width="120sp"
+            android:layout_height="900sp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ItemMainViewImage"
+            android:layout_marginLeft="2sp"
+            android:layout_marginTop="5sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/ItemMainViewName" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/ItemMainViewPrice" />
+
+        </LinearLayout>
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="100sp"
+            android:layout_height="50sp"
+            android:text="В корзину"
+            android:id="@+id/ItemMainViewButton"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:textSize="12sp" />
+    </RelativeLayout>
+
+
+</LinearLayout>

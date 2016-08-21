@@ -2,6 +2,8 @@ package ru.serv_techno.delivery_st;
 
 import com.orm.SugarRecord;
 
+import java.util.List;
+
 /**
  * Created by Maxim on 18.08.2016.
  */
@@ -31,5 +33,17 @@ public class Product extends SugarRecord{
         this.catalog2 = catalog2;
         this.mainview = mainview;
         this.imagelink = imagelink;
+    }
+
+    public static List<Product> getProductsMainView() {
+        return Product.find(Product.class, "mainview = ?", "1");
+    }
+
+    public static List<Product> getProductsCatalog1(String catalog1) {
+        return Product.find(Product.class, "catalog1 = ?", catalog1);
+    }
+
+    public static List<Product> getProductsCatalog2(String catalog2) {
+        return Product.find(Product.class, "catalog1 = ?", catalog2);
     }
 }

@@ -84,15 +84,16 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 List<Catalog> catalogs;
-                int extId;
-                int active;
-                int parentId = 0;
-                int countProducts = 0;
 
                 JSONArray CatalogsJSON = new JSONArray(strJson);
 
                 for (int i = 0; i < CatalogsJSON.length(); i++) {
                     JSONObject CatalogJSON = CatalogsJSON.getJSONObject(i);
+
+                    int extId;
+                    int active;
+                    int parentId = 0;
+                    int countProducts = 0;
 
                     extId = CatalogJSON.getInt("id");
                     active = CatalogJSON.getInt("active");
@@ -182,21 +183,22 @@ public class MainActivity extends AppCompatActivity {
 
             try {
                 List<Product> products;
-                int extid = 0;
-                int active = 0;
-                String name = "";
-                String description = "";
-                float price = 0;
-                String weight = "";
-                int catalog1 = 0;
-                int catalog2 = 0;
-                int mainview = 0;
-                String imagelink = "";
 
                 JSONArray ProductsJSON = new JSONArray(strJson);
 
                 for (int i = 0; i < ProductsJSON.length(); i++) {
                     JSONObject ProductJSON = ProductsJSON.getJSONObject(i);
+
+                    int extid = 0;
+                    int active = 0;
+                    String name = "";
+                    String description = "";
+                    float price = 0;
+                    String weight = "";
+                    int catalog1 = 0;
+                    int catalog2 = 0;
+                    int mainview = 0;
+                    String imagelink = "";
 
                     extid = ProductJSON.getInt("id");
                     active = ProductJSON.getInt("active");

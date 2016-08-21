@@ -2,6 +2,8 @@ package ru.serv_techno.delivery_st;
 
 import com.orm.SugarRecord;
 
+import java.util.List;
+
 /**
  * Created by Maxim on 18.08.2016.
  */
@@ -22,6 +24,10 @@ public class Catalog extends SugarRecord{
         this.name = name;
         this.parentid = parentid;
         this.countproducts = countproducts;
+    }
+
+    public static List<Catalog> getCatalogsMain() {
+        return Catalog.find(Catalog.class, "parentid = ?", "0");
     }
 
 }

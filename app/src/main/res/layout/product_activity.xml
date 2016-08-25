@@ -1,7 +1,11 @@
 <android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/drawer_layout"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    tools:openDrawer="start">
+
     <!-- The main content view -->
     <FrameLayout
         android:id="@+id/content_frame"
@@ -13,16 +17,39 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_gravity="left|top" />
+
+
     </FrameLayout>
 
-
-    <ListView
-        android:id="@+id/left_drawer"
+    <RelativeLayout
+        android:id="@+id/relLayoutDrawer"
         android:layout_width="240dp"
         android:layout_height="match_parent"
-        android:layout_gravity="start"
-        android:background="#111"
-        android:choiceMode="singleChoice"
-        android:divider="@android:color/transparent"
-        android:dividerHeight="0dp" />
+        android:layout_gravity="left|top"
+        android:background="#111">
+
+        <ImageView
+            android:id="@+id/drawer_background_image"
+            android:layout_width="match_parent"
+            android:layout_height="130dp"
+
+            android:src="@drawable/snoopy_drawer_background_image" />
+
+        <ListView
+
+            android:id="@+id/left_drawer"
+            android:layout_width="240dp"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="#111"
+            android:choiceMode="singleChoice"
+            android:divider="@android:color/transparent"
+            android:dividerHeight="0dp"
+            android:layout_marginTop="130dp"></ListView>
+    </RelativeLayout>
+
+
+
+
+
 </android.support.v4.widget.DrawerLayout>

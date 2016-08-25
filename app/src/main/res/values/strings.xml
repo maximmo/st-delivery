@@ -6,4 +6,7 @@
     <string name="main_menu_item_order">Создать заказ</string>
     <string name="main_menu_item_about">О программе</string>
     <string name="main_menu_item_exit">Выход</string>
+    <string name="drawer_open">Test1</string>
+    <string name="drawer_close">Test2</string>
+
 </resources>

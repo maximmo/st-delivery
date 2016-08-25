@@ -1,11 +1,16 @@
 package ru.serv_techno.delivery_st;
 
+import android.content.res.Configuration;
+import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -14,11 +19,12 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import java.util.List;
 
-public class products_activity extends AppCompatActivity{
+public class products_activity extends AppCompatActivity {
 
     public static String LOG_TAG = "deliveryST_log";
     ActionBarDrawerToggle mDrawerToggle;
@@ -28,7 +34,8 @@ public class products_activity extends AppCompatActivity{
     MainCatalogsAdapter mainCatalogsAdapter;
     ListView mDrawerList;
     DrawerLayout mDrawerLayout;
-
+    NavigationView NavView;
+    RelativeLayout RelLayoutNavDrawer;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -42,9 +49,43 @@ public class products_activity extends AppCompatActivity{
         List<Catalog> CatalogList = Catalog.getCatalogsMain();
         mainCatalogsAdapter = new MainCatalogsAdapter(this, CatalogList);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
+        RelLayoutNavDrawer = (RelativeLayout) findViewById(R.id.relLayoutDrawer);
+
+        // Включаем значок у ActionBar для управления выдвижной панелью щелчком
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeButtonEnabled(true);
+
+        // ActionBarDrawerToggle ties together the the proper interactions
+        // between the sliding drawer and the action bar app icon
+        mDrawerToggle = new ActionBarDrawerToggle(
+                this,                  /* host Activity */
+                mDrawerLayout,         /* DrawerLayout object */
+                null,  /* значок-гамбургер для замены стрелки 'Up' */
+                R.string.drawer_open,  /* добавьте строку "open drawer" - описание для  accessibility */
+                R.string.drawer_close  /* добавьте "close drawer" - описание для accessibility */
+        ){
+            public void onDrawerClosed(View view) {
+                getSupportActionBar().setTitle(mTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+
+            public void onDrawerOpened(View drawerView) {
+                getSupportActionBar().setTitle(mDrawerTitle);
+                invalidateOptionsMenu(); // creates call to onPrepareOptionsMenu()
+            }
+        };
+
+        mDrawerToggle.setDrawerIndicatorEnabled(true);
+
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         mDrawerList.setAdapter(mainCatalogsAdapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
+        getSupportActionBar().setTitle("Популярные товары");
+//        if (savedInstanceState == null) {
+//            selectItem(0);
+//        }
+
+        //mDrawerLayout.openDrawer(GravityCompat.START);
     }
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
@@ -64,10 +105,11 @@ public class products_activity extends AppCompatActivity{
             MainViewAdapter mainViewAdapter = new MainViewAdapter(this, MainViewList);
             ListView lvMainProducts = (ListView) findViewById(R.id.lwMainView);
             lvMainProducts.setAdapter(mainViewAdapter);
-
             mDrawerList.setItemChecked(position, true);
-            //setTitle(catalog.name);
-            mDrawerLayout.closeDrawer(mDrawerList);
+            getSupportActionBar().setTitle(catalog.name);
+            //mDrawerLayout.closeDrawer(mDrawerList);
+
+            mDrawerLayout.closeDrawer(RelLayoutNavDrawer);
         }
     }
 
@@ -86,6 +128,10 @@ public class products_activity extends AppCompatActivity{
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
+        if (mDrawerToggle.onOptionsItemSelected(item)) {
+            return true;
+        }
+
         switch (id) {
             case R.id.main_menu_item_order:
                 Toast toast = Toast.makeText(this, "Создан заказ!", Toast.LENGTH_SHORT);
@@ -101,5 +147,17 @@ public class products_activity extends AppCompatActivity{
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    @Override
+    protected void onPostCreate(Bundle savedInstanceState) {
+        super.onPostCreate(savedInstanceState);
+        mDrawerToggle.syncState();
+    }
+
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mDrawerToggle.onConfigurationChanged(newConfig);
     }
 }

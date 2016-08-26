@@ -3,6 +3,7 @@ package ru.serv_techno.delivery_st;
 import com.orm.SugarRecord;
 
 import java.util.List;
+import java.util.StringTokenizer;
 
 /**
  * Created by Maxim on 18.08.2016.
@@ -45,5 +46,9 @@ public class Product extends SugarRecord{
 
     public static List<Product> getProductsCatalog2(String catalog2) {
         return Product.find(Product.class, "catalog1 = ?", catalog2);
+    }
+
+    public static Product getProductById(int productid) {
+        return Product.findById(Product.class, productid);
     }
 }

@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <RelativeLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="60sp"
+        android:layout_marginTop="5sp"
+        android:background="@color/background_material_light">
+
+        <ImageView
+            android:id="@+id/ItemBoxImage"
+            android:src="@drawable/icon_snoopy"
+            android:layout_width="80sp"
+            android:layout_height="60sp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_toRightOf="@id/ItemBoxImage"
+            android:layout_marginLeft="2sp"
+            android:layout_marginTop="5sp"
+            android:id="@+id/linearLayout"
+            android:layout_marginRight="5sp">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceMedium"
+                android:text="Medium Text"
+                android:id="@+id/ItemBoxName" />
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="?android:attr/textAppearanceSmall"
+                android:text="Small Text"
+                android:id="@+id/ItemBoxPrice" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_toRightOf="@id/linearLayout"
+                android:gravity="right"
+                android:layout_gravity="center_vertical">
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="-"
+                    android:id="@+id/btnMinus"
+                    android:textSize="12dp"
+                    android:gravity="center_vertical|center|center_horizontal" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="1"
+                    android:id="@+id/textViewAmount"
+                    android:textSize="20dp" />
+
+                <Button
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:text="+"
+                    android:id="@+id/btnPlus"
+                    android:textSize="12dp"
+                    android:gravity="center_vertical|center|center_horizontal" />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+</LinearLayout>

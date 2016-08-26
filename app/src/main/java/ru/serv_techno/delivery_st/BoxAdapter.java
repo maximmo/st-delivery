@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -18,17 +19,18 @@ import java.io.InputStream;
 import java.util.List;
 
 /**
- * Created by Maxim on 22.08.2016.
+ * Created by Maxim on 27.08.2016.
  */
-public class MainViewAdapter extends BaseAdapter {
+public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
 
     Context ctx;
     LayoutInflater lInflater;
-    List<Product> objects;
+    List<OrderProducts> objects;
+    NumberPicker np;
 
-    MainViewAdapter(Context context, List<Product> products) {
+    BoxAdapter(Context context, List<OrderProducts> orderProducts) {
         ctx = context;
-        objects = products;
+        objects = orderProducts;
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
@@ -50,25 +52,43 @@ public class MainViewAdapter extends BaseAdapter {
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
-
         View view = convertView;
         if (view == null) {
-            view = lInflater.inflate(R.layout.item_main_view, parent, false);
+            view = lInflater.inflate(R.layout.item_box, parent, false);
         }
 
-        Product p = getProduct(position);
+        final OrderProducts OrderProduct = getOrderProduct(position);
+        int productid = OrderProduct.productid;
 
-        ((TextView) view.findViewById(R.id.ItemMainViewName)).setText(p.name);
-        ((TextView) view.findViewById(R.id.ItemMainViewPrice)).setText(String.valueOf(p.price) + " \u20BD");
+        Product p = Product.getProductById(productid);
 
-        new DownloadImageTask((ImageView) view.findViewById(R.id.ItemMainViewImage)).execute(p.imagelink);
+        ((TextView) view.findViewById(R.id.ItemBoxName)).setText(p.name);
+        ((TextView) view.findViewById(R.id.ItemBoxPrice)).setText(String.valueOf(p.price * OrderProduct.amount) + " \u20BD");
 
-        Button btn = (Button) view.findViewById(R.id.ItemMainViewButton);
-        btn.setTag(position);
-        btn.setOnClickListener(btnItemPress);
+        //кнопки увеличения количества
+        Button btnMinus = (Button) view.findViewById(R.id.btnMinus);
+        ((TextView) view.findViewById(R.id.textViewAmount)).setText(String.valueOf(OrderProduct.amount));
+        Button btnPlus = (Button) view.findViewById(R.id.btnPlus);
+        btnMinus.setOnClickListener(this);
+        btnMinus.setTag(position);
+        btnPlus.setOnClickListener(this);
+        btnPlus.setTag(position);
+
+        new DownloadImageTask((ImageView) view.findViewById(R.id.ItemBoxImage)).execute(p.imagelink);
 
         return view;
+    }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnMinus:
+                //обработка уменьшения
+                break;
+            case R.id.btnPlus:
+                //обработка увеличения
+                break;
+        }
     }
 
     private class DownloadImageTask extends AsyncTask<String, Void, Bitmap> {
@@ -96,29 +116,19 @@ public class MainViewAdapter extends BaseAdapter {
         }
     }
 
-    Product getProduct(int position) {
-        return ((Product) getItem(position));
+    OrderProducts getOrderProduct(int position) {
+        return ((OrderProducts) getItem(position));
     }
 
     View.OnClickListener btnItemPress = new View.OnClickListener() {
 
         public void onClick(View v) {
 
-            Product ProductPressed = getProduct((Integer) v.getTag());
-
-            List<OrderProducts> orderProduct = OrderProducts.find(OrderProducts.class, "extid = ? and productid = ?", "0", String.valueOf(ProductPressed.getId()));
-            if (orderProduct.size()==0){
-                OrderProducts orderProducts = new OrderProducts(0, Integer.valueOf(String.valueOf(ProductPressed.getId())), 1, 0);
-                orderProducts.save();
-            }else{
-                OrderProducts orderProducts = orderProduct.get(0);
-                orderProducts.amount++;
-                orderProducts.save();
-            }
-
-            Toast toast = Toast.makeText(ctx.getApplicationContext(), "Добавлен товар: " + ProductPressed.name, Toast.LENGTH_SHORT);
+            OrderProducts OrderProductPressed = getOrderProduct((Integer) v.getTag());
+            Toast toast = Toast.makeText(ctx.getApplicationContext(), "Нажата запись:" + OrderProductPressed.productid, Toast.LENGTH_SHORT);
             toast.show();
         }
     };
+
 
 }

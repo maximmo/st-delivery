@@ -1,5 +1,6 @@
 package ru.serv_techno.delivery_st;
 
+import android.content.Intent;
 import android.content.res.Configuration;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
@@ -95,9 +96,8 @@ public class products_activity extends AppCompatActivity {
         }
     }
 
-    /** Смена фрагментов в основном окне программы */
-    private void selectItem(int position) {
-        // Создание нового фрагмента и вставка изображения для показа, в зависимости от выбранной позиции
+     private void selectItem(int position) {
+
         Catalog catalog = mainCatalogsAdapter.getCatalog(position);
 
         if(catalog!=null) {
@@ -134,8 +134,8 @@ public class products_activity extends AppCompatActivity {
 
         switch (id) {
             case R.id.main_menu_item_order:
-                Toast toast = Toast.makeText(this, "Создан заказ!", Toast.LENGTH_SHORT);
-                toast.show();
+                Intent i = new Intent(products_activity.this, BoxActivity.class);
+                startActivity(i);
                 return true;
             case R.id.main_menu_item_about:
                 Toast toastAbout = Toast.makeText(this, "Это приложение-клиент для сайта доставки компании 'Сервисные технологии'", Toast.LENGTH_SHORT);

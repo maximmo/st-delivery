@@ -3,26 +3,62 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <EditText
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
-        android:text="Name"
-        android:ems="10"
-        android:id="@+id/PersonName"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin">
 
-    <EditText
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Имя"
+            android:id="@+id/textView"
+            android:textSize="18dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="textPersonName"
+            android:ems="10"
+            android:id="@+id/PersonName"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:hint="Иван Иванов"
+            android:layout_marginLeft="37dp" />
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:inputType="phone"
-        android:ems="10"
-        android:id="@+id/PersonPhone"
-        android:layout_below="@+id/PersonName"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="?android:attr/textAppearanceSmall"
+            android:text="Телефон"
+            android:id="@+id/textView3"
+            android:textSize="18dp" />
+
+        <EditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="phone"
+            android:ems="10"
+            android:id="@+id/PersonPhone"
+            android:layout_below="@+id/PersonName"
+            android:layout_alignParentStart="true"
+            android:layout_alignParentEnd="true"
+            android:hint="+7(902) 5-61-61-61" />
+
+    </LinearLayout>
 
     <EditText
         android:layout_width="match_parent"
@@ -32,17 +68,48 @@
         android:id="@+id/PersonAddress"
         android:layout_below="@+id/PersonPhone"
         android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:hint="Адрес"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin" />
 
-    <Button
+    <LinearLayout
+        android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        android:text="Оформить заказ"
-        android:id="@+id/button"
-        style="@android:style/Widget.ImageWell"
-        android:textColor="@color/abc_primary_text_material_dark"
-        android:textSize="18dp"
-        android:background="@color/colorPrimary" />
+        android:layout_height="wrap_content"
+        android:layout_marginRight="4dp"
+        android:layout_marginLeft="4dp"
+        android:layout_gravity="center_horizontal"
+        android:gravity="center_horizontal"
+        android:layout_marginTop="4dp"
+        android:layout_marginBottom="4dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:text="Оформить заказ"
+            android:id="@+id/btn_make_order"
+            style="@android:style/Widget.ImageWell"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:textSize="18dp"
+            android:background="#5cb85c"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:layout_marginRight="5dp" />
+
+        <Button
+            style="@android:style/Widget.ImageWell"
+            android:layout_width="fill_parent"
+            android:layout_height="fill_parent"
+            android:text="Очистить корзину"
+            android:id="@+id/btn_clear_box"
+            android:textColor="@color/abc_primary_text_material_dark"
+            android:textSize="18dp"
+            android:background="@android:color/holo_red_dark"
+            android:layout_gravity="center_horizontal"
+            android:layout_weight="1"
+            android:layout_marginLeft="5dp" />
+    </LinearLayout>
 
     <ListView
         android:layout_width="match_parent"

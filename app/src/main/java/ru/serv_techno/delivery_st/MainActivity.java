@@ -1,12 +1,16 @@
 package ru.serv_techno.delivery_st;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Display;
+import android.widget.ImageView;
 
 import com.google.android.gms.appindexing.Action;
 import com.google.android.gms.appindexing.AppIndex;
@@ -27,6 +31,8 @@ import java.util.List;
 public class MainActivity extends AppCompatActivity {
 
     public static String LOG_TAG = "deliveryST_log";
+    private Bitmap splashBG;
+    private ImageView imageView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +41,21 @@ public class MainActivity extends AppCompatActivity {
         getSupportActionBar().hide();
         new ParseCatalogs().execute();
         new ParseProducts().execute();
+
+        BitmapFactory.Options op0 = new BitmapFactory.Options();
+        op0.inJustDecodeBounds = true;
+        this.splashBG = BitmapFactory.decodeResource(getResources(), R.drawable.background_splash, op0);
+        Display disp = getWindowManager().getDefaultDisplay();
+        int scale = Math.max(Math.round((float) (op0.outWidth / disp.getWidth())), Math.round((float) (op0.outHeight / disp.getHeight())));
+        if (scale < 1) {
+            scale = 1;
+        }
+        BitmapFactory.Options op = new BitmapFactory.Options();
+        op.inPreferredConfig = Bitmap.Config.RGB_565;
+        op.inSampleSize = scale;
+        this.splashBG = BitmapFactory.decodeResource(getResources(), R.drawable.background_splash, op);
+        this.imageView = (ImageView) findViewById(R.id.backgroundsplash);
+        this.imageView.setImageBitmap(this.splashBG);
 
         new Handler().postDelayed(new Runnable() {
             @Override

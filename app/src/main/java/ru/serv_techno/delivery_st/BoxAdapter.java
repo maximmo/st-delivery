@@ -74,8 +74,9 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
         btnPlus.setOnClickListener(this);
         btnPlus.setTag(position);
 
-        new DownloadImageTask((ImageView) view.findViewById(R.id.ItemBoxImage)).execute(p.imagelink);
-
+        if (p.imagelink != null) {
+            new DownloadImageTask((ImageView) view.findViewById(R.id.ItemBoxImage)).execute(p.imagelink);
+        }
         return view;
     }
 

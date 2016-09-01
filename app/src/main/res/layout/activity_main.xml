@@ -1,15 +1,28 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:gravity="top|bottom|left|right|center_vertical|fill_vertical|center_horizontal|fill_horizontal|center|fill|start|end"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <FrameLayout android:layout_width="match_parent" android:layout_height="match_parent" android:layout_alignParentLeft="true" android:layout_alignParentTop="true">
+        <ImageView
+            android:id="@+id/backgroundsplash"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:scaleType="fitXY"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            />
+    </FrameLayout>
 
     <ImageView
         android:src="@drawable/splash"
-        android:layout_width="250dp"
-        android:layout_height="220dp"
+        android:layout_width="250sp"
+        android:layout_height="220sp"
         android:id="@+id/imageView"
-        android:layout_gravity="center"
-        android:layout_marginTop="120sp" />
+        android:scaleType="centerInside"
+        android:layout_marginTop="120dp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -17,16 +30,22 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/splash_text"
         android:id="@+id/textView2"
-        android:layout_gravity="center_horizontal|bottom"
-        android:layout_marginTop="10dp"
-        android:textSize="20dp"
-        android:textStyle="bold" />
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="360dp"
+        android:textSize="24dp"
+        android:textStyle="bold"
+        android:textColor="@color/common_signin_btn_dark_text_default"
+        android:shadowColor="#000000"
+        android:shadowDx="2"
+        android:shadowDy="2"
+        android:shadowRadius="5"
+        />
 
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="70sp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="420dp"
         android:indeterminateDrawable="@drawable/spinner"
         android:indeterminateOnly="true" />
-</LinearLayout>
+</RelativeLayout>

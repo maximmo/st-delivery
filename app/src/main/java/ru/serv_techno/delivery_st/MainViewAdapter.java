@@ -61,7 +61,9 @@ public class MainViewAdapter extends BaseAdapter {
         ((TextView) view.findViewById(R.id.ItemMainViewName)).setText(p.name);
         ((TextView) view.findViewById(R.id.ItemMainViewPrice)).setText(String.valueOf(p.price) + " \u20BD");
 
-        new DownloadImageTask((ImageView) view.findViewById(R.id.ItemMainViewImage)).execute(p.imagelink);
+        if (p.imagelink != null) {
+            new DownloadImageTask((ImageView) view.findViewById(R.id.ItemMainViewImage)).execute(p.imagelink);
+        }
 
         Button btn = (Button) view.findViewById(R.id.ItemMainViewButton);
         btn.setTag(position);

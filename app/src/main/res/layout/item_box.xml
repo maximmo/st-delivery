@@ -1,81 +1,89 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
-    <RelativeLayout
-        android:orientation="horizontal"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="60sp"
-        android:layout_marginTop="5sp"
-        android:background="@color/background_material_light">
+        android:layout_height="wrap_content"
+        android:layout_marginTop="2sp"
+        android:background="@color/background_material_light"
+        android:orientation="horizontal"
+        android:layout_marginBottom="2dp">
 
         <ImageView
             android:id="@+id/ItemBoxImage"
-            android:src="@drawable/icon_snoopy"
-            android:layout_width="80sp"
-            android:layout_height="60sp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+            android:layout_width="60sp"
+            android:layout_height="50sp"
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:src="@drawable/icon_snoopy" />
 
         <LinearLayout
-            android:orientation="vertical"
+            android:id="@+id/linearLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/ItemBoxImage"
             android:layout_marginLeft="2sp"
-            android:layout_marginTop="5sp"
-            android:id="@+id/linearLayout"
-            android:layout_marginRight="5sp">
+            android:layout_marginRight="5sp"
+            android:layout_marginTop="2sp"
+            android:layout_toRightOf="@id/ItemBoxImage"
+            android:orientation="vertical">
 
             <TextView
+                android:id="@+id/ItemBoxName"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:text="Unnamed"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:text="Medium Text"
-                android:id="@+id/ItemBoxName" />
+                android:textSize="16dp" />
+
             <TextView
+                android:id="@+id/ItemBoxPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textAppearance="?android:attr/textAppearanceSmall"
-                android:text="Small Text"
-                android:id="@+id/ItemBoxPrice" />
+                android:text="0"
+                android:textSize="15dp" />
 
             <LinearLayout
-                android:orientation="horizontal"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_toRightOf="@id/linearLayout"
+                android:layout_height="25dp"
+                android:orientation="horizontal"
                 android:gravity="right"
-                android:layout_gravity="center_vertical">
+                android:layout_marginRight="@dimen/activity_horizontal_margin">
 
                 <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:text="-"
                     android:id="@+id/btnMinus"
-                    android:textSize="12dp"
-                    android:gravity="center_vertical|center|center_horizontal" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:text="-"
+                    android:textSize="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical|center|center_horizontal"
+                    android:background="@android:color/background_light"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textStyle="bold" />
 
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="1"
                     android:id="@+id/textViewAmount"
-                    android:textSize="20dp" />
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:text="1"
+                    android:textSize="15dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center|center_horizontal" />
 
                 <Button
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:text="+"
                     android:id="@+id/btnPlus"
-                    android:textSize="12dp"
-                    android:gravity="center_vertical|center|center_horizontal" />
-
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:text="+"
+                    android:textSize="10dp"
+                    android:layout_gravity="center_horizontal"
+                    android:gravity="center_vertical|center|center_horizontal"
+                    android:background="@android:color/background_light"
+                    android:textColor="@android:color/holo_red_dark"
+                    android:textStyle="bold" />
             </LinearLayout>
-
         </LinearLayout>
-
-    </RelativeLayout>
-
-
+    </LinearLayout>
 </LinearLayout>

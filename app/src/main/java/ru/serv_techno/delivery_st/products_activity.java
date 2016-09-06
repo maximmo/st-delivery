@@ -45,6 +45,21 @@ public class products_activity extends AppCompatActivity {
         List<Product> MainViewList = Product.getProductsMainView();
         mainViewAdapter = new MainViewAdapter(this, MainViewList);
         ListView lvMainProducts = (ListView) findViewById(R.id.lwMainView);
+
+
+        lvMainProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view,
+                                    int position, long id) {
+                Product mProduct = mainViewAdapter.getProduct(position);
+
+                if (mProduct != null) {
+                    Intent intent = new Intent(products_activity.this, ProductCardActivity.class);
+                    intent.putExtra("ProductID", mProduct.getId());
+                    startActivity(intent);
+                }
+            }
+        });
         lvMainProducts.setAdapter(mainViewAdapter);
 
         List<Catalog> CatalogList = Catalog.getCatalogsMain();

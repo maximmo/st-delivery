@@ -1,22 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="wrap_content" >
+    android:layout_height="wrap_content"
+    android:descendantFocusability="blocksDescendants">
 
     <RelativeLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="2dp"
+        android:layout_height="100sp"
+        android:layout_marginTop="2sp"
         android:background="@color/background_material_light"
-        android:layout_marginBottom="5dp">
+        android:layout_marginBottom="2sp">
 
         <ImageView
             android:id="@+id/ItemMainViewImage"
             android:src="@drawable/icon_snoopy"
             android:layout_width="90dp"
             android:layout_height="80dp"
-            android:layout_marginLeft="@dimen/activity_horizontal_margin"/>
+            android:layout_marginLeft="@dimen/activity_horizontal_margin"
+            android:focusable="false"/>
 
         <LinearLayout
             android:orientation="vertical"
@@ -33,6 +35,7 @@
                 android:text="Medium Text"
                 android:id="@+id/ItemMainViewName"
                 android:textSize="16dp"
+                android:focusable="false"
                 />
             <TextView
                 android:layout_width="wrap_content"
@@ -40,14 +43,15 @@
                 android:textAppearance="?android:attr/textAppearanceSmall"
                 android:text="Small Text"
                 android:id="@+id/ItemMainViewPrice"
-                android:textSize="15dp"/>
+                android:textSize="15dp"
+                android:focusable="false"/>
 
         </LinearLayout>
 
         <Button
             style="@android:style/Widget.Holo.Light.Button"
-            android:layout_width="70sp"
-            android:layout_height="35sp"
+            android:layout_width="65sp"
+            android:layout_height="30sp"
             android:text="В корзину"
             android:id="@+id/ItemMainViewButton"
             android:layout_marginRight="@dimen/activity_horizontal_margin"
@@ -55,7 +59,8 @@
             android:layout_alignParentBottom="true"
             android:textSize="12sp"
             android:background="#31b0d5"
-            android:textColor="@android:color/primary_text_dark" />
+            android:textColor="@android:color/primary_text_dark"
+            android:layout_marginBottom="@dimen/activity_vertical_margin" />
     </RelativeLayout>
 
 

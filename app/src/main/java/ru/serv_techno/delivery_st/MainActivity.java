@@ -221,6 +221,7 @@ public class MainActivity extends AppCompatActivity {
                     int catalog2 = 0;
                     int mainview = 0;
                     String imagelink = "";
+                    String bigImageLink = "";
 
                     extid = ProductJSON.getInt("id");
                     active = ProductJSON.getInt("active");
@@ -258,10 +259,16 @@ public class MainActivity extends AppCompatActivity {
                         e.printStackTrace();
                     }
 
+                    try {
+                        bigImageLink = ProductJSON.getString("bigImageLink");
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+
                     products = Product.find(Product.class, "extid = ?", String.valueOf(extid));
 
                     if (products.isEmpty()) {
-                        Product product = new Product(extid, active, name, description, price, weight, catalog1, catalog2, mainview, imagelink);
+                        Product product = new Product(extid, active, name, description, price, weight, catalog1, catalog2, mainview, imagelink, bigImageLink);
                         try {
                             product.save();
                             Log.d(LOG_TAG, "В БД записан товар: " + name);
@@ -281,6 +288,7 @@ public class MainActivity extends AppCompatActivity {
                         product.catalog2 = catalog2;
                         product.mainview = mainview;
                         product.imagelink = imagelink;
+                        product.bigImageLink = bigImageLink;
 
                         try {
                             product.save();

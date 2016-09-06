@@ -8,7 +8,7 @@ import java.util.StringTokenizer;
 /**
  * Created by Maxim on 18.08.2016.
  */
-public class Product extends SugarRecord{
+public class Product extends SugarRecord {
     int extid;
     int active;
     String name;
@@ -19,11 +19,12 @@ public class Product extends SugarRecord{
     int catalog2;
     int mainview;
     String imagelink;
+    String bigImageLink;
 
     public Product() {
     }
 
-        public Product(int extid, int active, String name, String description, float price, String weight, int catalog1, int catalog2, int mainview, String imagelink) {
+    public Product(int extid, int active, String name, String description, float price, String weight, int catalog1, int catalog2, int mainview, String imagelink, String bigImageLink) {
         this.extid = extid;
         this.active = active;
         this.name = name;
@@ -34,6 +35,7 @@ public class Product extends SugarRecord{
         this.catalog2 = catalog2;
         this.mainview = mainview;
         this.imagelink = imagelink;
+        this.bigImageLink = bigImageLink;
     }
 
     public static List<Product> getProductsMainView() {

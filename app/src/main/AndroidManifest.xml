@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.serv_techno.delivery_st">
 
-    <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:name="com.orm.SugarApp"
@@ -24,7 +24,9 @@
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="ru.serv_techno.delivery_st" />
 
-        <activity android:name=".MainActivity">
+        <activity
+            android:name=".MainActivity"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -40,8 +42,13 @@
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
 
-        <activity android:name=".products_activity"></activity>
-        <activity android:name=".BoxActivity"></activity>
+        <activity
+            android:name=".products_activity"
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".BoxActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ProductCardActivity"></activity>
     </application>
 
 </manifest>

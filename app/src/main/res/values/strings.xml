@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Snoopy Sandwitch Club</string>
     <string name="splash_text">Snoopy Sandwitch Club</string>
-    <string name="catalog_request">http://admin.serv-techno.ru/api/v1/catalog/index</string>
-    <string name="product_request">http://admin.serv-techno.ru/api/v1/product/index</string>
+    <string name="catalog_request">http://admin.serv-techno.ru/api/v1/catalog/index?per-page=50</string>
+    <string name="product_request">http://admin.serv-techno.ru/api/v1/product/index?per-page=100</string>
     <string name="main_menu_item_order">Создать заказ</string>
     <string name="main_menu_item_about">О программе</string>
     <string name="main_menu_item_exit">Выход</string>

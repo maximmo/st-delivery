@@ -1,9 +1,12 @@
 package ru.serv_techno.delivery_st;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.os.AsyncTask;
+import android.support.design.widget.Snackbar;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,7 +24,7 @@ import java.util.List;
 /**
  * Created by Maxim on 22.08.2016.
  */
-public class MainViewAdapter extends BaseAdapter {
+public class MainViewAdapter extends BaseAdapter implements View.OnClickListener{
 
     Context ctx;
     LayoutInflater lInflater;
@@ -75,12 +78,28 @@ public class MainViewAdapter extends BaseAdapter {
         btn.setTag(position);
         btn.setOnClickListener(btnItemPress);
 
+        view.setTag(position);
+        view.setOnClickListener(this);
+
         return view;
 
     }
 
     Product getProduct(int position) {
         return ((Product) getItem(position));
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        Product mProduct = getProduct((Integer) v.getTag());
+
+        if (mProduct != null) {
+            Intent intent = new Intent(ctx, ProductCardActivity.class);
+            intent.putExtra("ProductID", mProduct.getId());
+            ctx.startActivity(intent);
+        }
+
     }
 
     View.OnClickListener btnItemPress = new View.OnClickListener() {
@@ -99,8 +118,10 @@ public class MainViewAdapter extends BaseAdapter {
                 orderProducts.save();
             }
 
-            Toast toast = Toast.makeText(ctx.getApplicationContext(), "Добавлен товар: " + ProductPressed.name, Toast.LENGTH_SHORT);
-            toast.show();
+            Snackbar mSnackbar = Snackbar.make(v, "Добавлен товар: " + ProductPressed.name, Snackbar.LENGTH_SHORT);
+            View snackbarView = mSnackbar.getView();
+            snackbarView.setBackgroundResource(R.color.SnackbarBg);
+            mSnackbar.show();
         }
     };
 

@@ -5,4 +5,5 @@
     <color name="colorAccent">#FF4081</color>
     <color name="productBtnTextColor">#fff</color>
     <color name="productBtnBgColor">#80fff0</color>
+    <color name="SnackbarBg">#5CB85C</color>
 </resources>

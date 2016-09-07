@@ -2,6 +2,8 @@ package ru.serv_techno.delivery_st;
 
 import android.content.Intent;
 import android.content.res.Configuration;
+import android.graphics.Color;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.GravityCompat;
@@ -11,6 +13,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -46,20 +49,6 @@ public class products_activity extends AppCompatActivity {
         mainViewAdapter = new MainViewAdapter(this, MainViewList);
         ListView lvMainProducts = (ListView) findViewById(R.id.lwMainView);
 
-
-        lvMainProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                Product mProduct = mainViewAdapter.getProduct(position);
-
-                if (mProduct != null) {
-                    Intent intent = new Intent(products_activity.this, ProductCardActivity.class);
-                    intent.putExtra("ProductID", mProduct.getId());
-                    startActivity(intent);
-                }
-            }
-        });
         lvMainProducts.setAdapter(mainViewAdapter);
 
         List<Catalog> CatalogList = Catalog.getCatalogsMain();
@@ -97,6 +86,15 @@ public class products_activity extends AppCompatActivity {
         mDrawerList.setAdapter(mainCatalogsAdapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         getSupportActionBar().setTitle("Популярные товары");
+
+//        FloatingActionButton fabButton = new FloatingActionButton(this);
+//        fabButton.setImageResource(R.drawable.box_ico);
+//        fabButton.setBackgroundColor(Color.CYAN);
+//        fabButton.animate();
+//        //fabButton.s
+////        fabButton.withGravity(Gravity.BOTTOM | Gravity.RIGHT);
+////        fabButton.withMargins(0, 0, 16, 16);
+//        fabButton.show();
 //        if (savedInstanceState == null) {
 //            selectItem(0);
 //        }

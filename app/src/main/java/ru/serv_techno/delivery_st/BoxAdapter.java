@@ -26,13 +26,13 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
     Context ctx;
     LayoutInflater lInflater;
     List<OrderProducts> objects;
-    NumberPicker np;
 
     BoxAdapter(Context context, List<OrderProducts> orderProducts) {
         ctx = context;
         objects = orderProducts;
         lInflater = (LayoutInflater) ctx
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+
     }
 
     @Override
@@ -41,7 +41,7 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
     }
 
     @Override
-    public Object getItem(int position) {
+    public OrderProducts getItem(int position) {
         return objects.get(position);
     }
 
@@ -85,9 +85,26 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
         switch (v.getId()) {
             case R.id.btnMinus:
                 //обработка уменьшения
+                OrderProducts OrderProductPressed = getItem((Integer) v.getTag());
+                if (OrderProductPressed != null) {
+                    if (OrderProductPressed.amount == 1) {
+                        OrderProductPressed.delete();
+                        objects.remove(OrderProductPressed);
+                    } else {
+                        OrderProductPressed.amount--;
+                        OrderProductPressed.save();
+                    }
+                    this.notifyDataSetChanged();
+                }
                 break;
             case R.id.btnPlus:
                 //обработка увеличения
+                OrderProducts OrderProductPressedPlus = getItem((Integer) v.getTag());
+                if (OrderProductPressedPlus != null) {
+                    OrderProductPressedPlus.amount++;
+                    OrderProductPressedPlus.save();
+                }
+                this.notifyDataSetChanged();
                 break;
         }
     }

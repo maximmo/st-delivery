@@ -18,7 +18,14 @@
             android:layout_height="match_parent"
             android:layout_gravity="left|top" />
 
-
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:background="@color/colorPrimary"
+            android:src="@drawable/forward"/>
     </FrameLayout>
 
     <RelativeLayout
@@ -26,7 +33,7 @@
         android:layout_width="240dp"
         android:layout_height="match_parent"
         android:layout_gravity="left|top"
-        android:background="#111">
+        android:background="#101006">
 
         <ImageView
             android:id="@+id/drawer_background_image"
@@ -47,8 +54,6 @@
             android:dividerHeight="0dp"
             android:layout_marginTop="130dp"></ListView>
     </RelativeLayout>
-
-
 
 
 

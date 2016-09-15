@@ -2,6 +2,7 @@ package ru.serv_techno.delivery_st;
 
 import android.content.Context;
 import android.content.Intent;
+import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -74,8 +75,12 @@ public class ProductCardActivity extends AppCompatActivity {
                 orderProducts.save();
             }
 
-            Toast toast = Toast.makeText(getApplicationContext(), "Добавлен товар: " + ProductPressed.name, Toast.LENGTH_SHORT);
-            toast.show();
+            Snackbar mSnackbar = Snackbar.make(v, "Добавлен товар: " + ProductPressed.name, Snackbar.LENGTH_SHORT);
+            View snackbarView = mSnackbar.getView();
+            snackbarView.setBackgroundResource(R.color.SnackbarBg);
+            mSnackbar.show();
+//            Toast toast = Toast.makeText(getApplicationContext(), "Добавлен товар: " + ProductPressed.name, Toast.LENGTH_SHORT);
+//            toast.show();
         }
     };
 }

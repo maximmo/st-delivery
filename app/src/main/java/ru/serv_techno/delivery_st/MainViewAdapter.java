@@ -18,6 +18,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -71,7 +73,12 @@ public class MainViewAdapter extends BaseAdapter implements View.OnClickListener
         ((TextView) view.findViewById(R.id.ItemMainViewPrice)).setText(String.valueOf(p.price) + " \u20BD");
 
         if (p.imagelink != null) {
-            new DownloadImageTask((ImageView) view.findViewById(R.id.ItemMainViewImage)).execute(p.imagelink);
+            //new DownloadImageTask((ImageView) view.findViewById(R.id.ItemMainViewImage)).execute(p.imagelink);
+            Picasso.with(ctx.getApplicationContext())
+                    .load(p.bigImageLink)
+                    .placeholder(R.drawable.icon_snoopy)
+                    .error(R.drawable.icon_snoopy)
+                    .into((ImageView) view.findViewById(R.id.ItemMainViewImage));
         }
 
         Button btn = (Button) view.findViewById(R.id.ItemMainViewButton);

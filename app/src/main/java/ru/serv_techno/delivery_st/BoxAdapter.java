@@ -15,6 +15,8 @@ import android.widget.NumberPicker;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.io.InputStream;
 import java.util.List;
 
@@ -75,7 +77,12 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
         btnPlus.setTag(position);
 
         if (p.imagelink != null) {
-            new DownloadImageTask((ImageView) view.findViewById(R.id.ItemBoxImage)).execute(p.imagelink);
+            //new DownloadImageTask((ImageView) view.findViewById(R.id.ItemBoxImage)).execute(p.imagelink);
+            Picasso.with(ctx.getApplicationContext())
+                    .load(p.bigImageLink)
+                    .placeholder(R.drawable.icon_snoopy)
+                    .error(R.drawable.icon_snoopy)
+                    .into((ImageView) view.findViewById(R.id.ItemBoxImage));
         }
         return view;
     }

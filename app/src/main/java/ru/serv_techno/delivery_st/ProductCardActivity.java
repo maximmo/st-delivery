@@ -11,6 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class ProductCardActivity extends AppCompatActivity {
@@ -29,7 +31,6 @@ public class ProductCardActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_product_card);
 
-//        mProduct = Product.getProductById(getIntent().getIntExtra("ProductID", 0));
         Intent intent = getIntent();
 
         long ProductID = intent.getLongExtra("ProductID", 0);
@@ -53,7 +54,12 @@ public class ProductCardActivity extends AppCompatActivity {
             this.bntAdd.setOnClickListener(btnAddPress);
 
             if (mProduct.bigImageLink != null) {
-                new DownloadImageTask((ImageView) findViewById(R.id.product_image)).execute(mProduct.bigImageLink);
+                //new DownloadImageTask((ImageView) findViewById(R.id.product_image)).execute(mProduct.bigImageLink);
+                Picasso.with(this)
+                        .load(mProduct.bigImageLink)
+                        .placeholder(R.drawable.snoopy_drawer_background_image)
+                        .error(R.drawable.snoopy_drawer_background_image)
+                        .into((ImageView) findViewById(R.id.product_image));
             }
 
         }
@@ -79,8 +85,6 @@ public class ProductCardActivity extends AppCompatActivity {
             View snackbarView = mSnackbar.getView();
             snackbarView.setBackgroundResource(R.color.SnackbarBg);
             mSnackbar.show();
-//            Toast toast = Toast.makeText(getApplicationContext(), "Добавлен товар: " + ProductPressed.name, Toast.LENGTH_SHORT);
-//            toast.show();
         }
     };
 }

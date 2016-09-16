@@ -40,6 +40,7 @@ public class products_activity extends AppCompatActivity {
     DrawerLayout mDrawerLayout;
     NavigationView NavView;
     RelativeLayout RelLayoutNavDrawer;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

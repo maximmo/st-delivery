@@ -6,4 +6,5 @@
     <color name="productBtnTextColor">#fff</color>
     <color name="productBtnBgColor">#80fff0</color>
     <color name="SnackbarBg">#5CB85C</color>
+    <color name="SnackbarBgRed">#D9534F</color>
 </resources>

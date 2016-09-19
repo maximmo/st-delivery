@@ -26,4 +26,9 @@ public class OrderProducts extends SugarRecord{
     public static List<OrderProducts> getOrderProductsNew() {
         return OrderProducts.find(OrderProducts.class, "extid = ?", "0");
     }
+
+    public void setOrderid(int _orderid){
+        this.orderid = _orderid;
+        this.save();
+    }
 }

@@ -62,6 +62,7 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
             ListView lvBoxOrderProducts = (ListView) findViewById(R.id.lwBox);
             lvBoxOrderProducts.setAdapter(boxAdapter);
 
+
             Snackbar mSnackbar = Snackbar.make(btnClearBox, "Корзина очищена!", Snackbar.LENGTH_SHORT);
             View snackbarView = mSnackbar.getView();
             snackbarView.setBackgroundResource(R.color.SnackbarBgRed);
@@ -69,10 +70,29 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
         }
         else{
             if(DialogID == SEND_ORDER_DIALOG){
-                Toast mToast = Toast.makeText(this, "Создание заказа!", Toast.LENGTH_SHORT);
-                mToast.show();
+                CreateOrder();
             }
         }
+    }
+
+    public void CreateOrder(){
+        Order newOrder = new Order();
+//        newOrder.save();
+//        boolean res = newOrder.sendOrder();
+//        if(res = true){
+            Snackbar mSnackbar = Snackbar.make(btnSend, "Заказ отправлен! Менеджер свяжется с Вами для уточнения деталей =)", Snackbar.LENGTH_LONG);
+            View snackbarView = mSnackbar.getView();
+            snackbarView.setBackgroundResource(R.color.SnackbarBg);
+            mSnackbar.show();
+
+            setDefaultStatus();
+        //}
+
+    }
+
+    public void setDefaultStatus(){
+
+        //onBackPressed();
     }
 
     @Override

@@ -38,8 +38,9 @@ public class products_activity extends AppCompatActivity {
     MainCatalogsAdapter mainCatalogsAdapter;
     ListView mDrawerList;
     DrawerLayout mDrawerLayout;
-    NavigationView NavView;
+    //NavigationView NavView;
     RelativeLayout RelLayoutNavDrawer;
+    FloatingActionButton mFab;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -88,18 +89,15 @@ public class products_activity extends AppCompatActivity {
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
         getSupportActionBar().setTitle("Популярные товары");
 
-//        FloatingActionButton fabButton = new FloatingActionButton(this);
-//        fabButton.setImageResource(R.drawable.box_ico);
-//        fabButton.setBackgroundColor(Color.CYAN);
-//        fabButton.animate();
-//        //fabButton.s
-////        fabButton.withGravity(Gravity.BOTTOM | Gravity.RIGHT);
-////        fabButton.withMargins(0, 0, 16, 16);
-//        fabButton.show();
-//        if (savedInstanceState == null) {
-//            selectItem(0);
-//        }
+        mFab = (FloatingActionButton) findViewById(R.id.fab);
+        mFab.setOnClickListener(new View.OnClickListener(){
 
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(products_activity.this, BoxActivity.class);
+                startActivity(i);
+            }
+        });
         //mDrawerLayout.openDrawer(GravityCompat.START);
     }
 

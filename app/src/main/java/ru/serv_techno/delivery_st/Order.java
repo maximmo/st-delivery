@@ -29,4 +29,9 @@ public class Order extends SugarRecord{
         this.orderclientphone = orderclientphone;
         this.orderclientaddress = orderclientaddress;
     }
+
+    public boolean sendOrder(){
+
+        return true;
+    }
 }

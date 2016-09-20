@@ -103,6 +103,9 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
                     }
                     this.notifyDataSetChanged();
                 }
+
+                ((BoxActivity)ctx).RefreshBoxSumm();
+
                 break;
             case R.id.btnPlus:
                 //обработка увеличения
@@ -112,6 +115,9 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
                     OrderProductPressedPlus.save();
                 }
                 this.notifyDataSetChanged();
+
+                ((BoxActivity)ctx).RefreshBoxSumm();
+
                 break;
         }
     }

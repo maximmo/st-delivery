@@ -73,7 +73,6 @@ public class MainViewAdapter extends BaseAdapter implements View.OnClickListener
         ((TextView) view.findViewById(R.id.ItemMainViewPrice)).setText(String.valueOf(p.price) + " \u20BD");
 
         if (p.imagelink != null) {
-            //new DownloadImageTask((ImageView) view.findViewById(R.id.ItemMainViewImage)).execute(p.imagelink);
             Picasso.with(ctx.getApplicationContext())
                     .load(p.bigImageLink)
                     .placeholder(R.drawable.icon_snoopy)

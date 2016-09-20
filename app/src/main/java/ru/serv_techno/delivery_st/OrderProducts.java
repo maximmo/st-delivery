@@ -27,8 +27,30 @@ public class OrderProducts extends SugarRecord{
         return OrderProducts.find(OrderProducts.class, "extid = ?", "0");
     }
 
+    public void setExtid(int _extid){
+        this.extid = _extid;
+        this.save();
+    }
+
     public void setOrderid(int _orderid){
         this.orderid = _orderid;
         this.save();
+    }
+
+    public static float getBoxSumm() {
+
+        float summ = 0;
+
+        List<OrderProducts> orderProductses = OrderProducts.find(OrderProducts.class, "extid = ?", "0");
+
+        for (int i=0;i<orderProductses.size();i++){
+            Product p = Product.getProductById(orderProductses.get(i).productid);
+
+            if(p!=null) {
+                summ = summ + orderProductses.get(i).amount * p.price;
+            }
+        }
+
+        return summ;
     }
 }

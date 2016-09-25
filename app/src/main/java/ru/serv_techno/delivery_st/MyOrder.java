@@ -4,6 +4,7 @@ import android.content.Context;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.provider.Settings;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.google.gson.Gson;
@@ -28,13 +29,17 @@ import java.net.ProtocolException;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
 import retrofit2.Call;
+import retrofit2.Callback;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -81,15 +86,29 @@ public class MyOrder extends SugarRecord {
 
     public boolean sendOrder() {
 
-        Map<String, String> params = new HashMap<String, String>();
+        RequestBody rb;
+        LinkedHashMap<String, RequestBody> mp= new LinkedHashMap<>();
 
-        params.put("price", String.valueOf(OrderProducts.getBoxSumm()));
-        params.put("number_person", "1");
-        params.put("payment_type", "cash");
-        params.put("delivery", "yes");
-        params.put("client[name]", this.clientname);
-        params.put("client[phone]", this.clientphone);
-        params.put("client[address]", this.clientaddress);
+        rb = RequestBody.create(MediaType.parse("text/plain"), String.valueOf((int)OrderProducts.getBoxSumm()));
+        mp.put("price", rb);
+
+        rb = RequestBody.create(MediaType.parse("text/plain"), "1");
+        mp.put("number_person", rb);
+
+        rb = RequestBody.create(MediaType.parse("text/plain"), "cash");
+        mp.put("payment_type", rb);
+
+        rb = RequestBody.create(MediaType.parse("text/plain"), "yes");
+        mp.put("delivery", rb);
+
+        rb = RequestBody.create(MediaType.parse("text/plain"), this.clientname);
+        mp.put("client[name]", rb);
+
+        rb = RequestBody.create(MediaType.parse("text/plain"), this.clientphone);
+        mp.put("client[phone]", rb);
+
+        rb = RequestBody.create(MediaType.parse("text/plain"), this.clientaddress);
+        mp.put("client[address]", rb);
 
         List<OrderProducts> orderProducts = OrderProducts.getOrderProductsNew();
         for (int i = 0; i < orderProducts.size(); i++) {
@@ -98,29 +117,84 @@ public class MyOrder extends SugarRecord {
             Product product = Product.getProductById(p.productid);
             if (product != null) {
 
-                params.put("products["+ String.valueOf(i)+"][product_id]", String.valueOf(product.extid));
-                params.put("products["+ String.valueOf(i)+"][amount]", String.valueOf(p.amount));
+                rb = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(product.extid));
+                mp.put("products["+ String.valueOf(i)+"][product_id]", rb);
+
+                rb = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(p.amount));
+                mp.put("products["+ String.valueOf(i)+"][amount]", rb);
+
             }
         }
 
-        Call<Object> call = intface.SendOrder(params);
-        //RequestBody
 
-        try {
-            retrofit2.Response<Object> resp = null;
-            resp = call.execute();
+//        Map<String, String> params = new HashMap<String, String>();
+//
+//        params.put("price", String.valueOf(OrderProducts.getBoxSumm()));
+//        params.put("number_person", "1");
+//        params.put("payment_type", "cash");
+//        params.put("delivery", "yes");
+//        params.put("client[name]", this.clientname);
+//        params.put("client[phone]", this.clientphone);
+//        params.put("client[address]", this.clientaddress);
+//
+//        List<OrderProducts> orderProducts = OrderProducts.getOrderProductsNew();
+//        for (int i = 0; i < orderProducts.size(); i++) {
+//            OrderProducts p = orderProducts.get(i);
+//
+//            Product product = Product.getProductById(p.productid);
+//            if (product != null) {
+//
+//                params.put("products["+ String.valueOf(i)+"][product_id]", String.valueOf(product.extid));
+//                params.put("products["+ String.valueOf(i)+"][amount]", String.valueOf(p.amount));
+//            }
+//        }
 
-            if(resp.isSuccessful()) {
-                Map<String, String> map = gson.fromJson(resp.body().toString(), Map.class);
-                for(Map.Entry e : map.entrySet()){
-                    System.out.println(e.getKey()+ " " + e.getValue());
-                }
 
-                return true;
+
+        Call<ResponseBody> call = intface.SendOrder(mp);
+
+        call.enqueue(new Callback<ResponseBody>() {
+            @Override
+            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+                Log.v("Upload", "success");
             }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+
+            @Override
+            public void onFailure(Call<ResponseBody> call, Throwable t) {
+                Log.e("Upload error:", t.getMessage());
+            }
+        });
+//        try {
+//            ResponseBody<Object> resp = null;
+//            resp = call.execute();
+//
+//            if(resp.isSuccessful()) {
+//                Map<String, String> map = gson.fromJson(resp.body().toString(), Map.class);
+//                for(Map.Entry e : map.entrySet()){
+//                    System.out.println(e.getKey()+ " " + e.getValue());
+//                }
+//
+//                return true;
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
+
+//        try {
+//            retrofit2.Response<Object> resp = null;
+//            resp = call.execute();
+//
+//            if(resp.isSuccessful()) {
+//                Map<String, String> map = gson.fromJson(resp.body().toString(), Map.class);
+//                for(Map.Entry e : map.entrySet()){
+//                    System.out.println(e.getKey()+ " " + e.getValue());
+//                }
+//
+//                return true;
+//            }
+//        } catch (IOException e) {
+//            e.printStackTrace();
+//        }
 
         return false;
 

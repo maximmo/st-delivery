@@ -69,7 +69,6 @@ public class MyOrder extends SugarRecord {
     private static APIv1 intface = retrofit.create(APIv1.class);
 
 
-
     public MyOrder() {
     }
 
@@ -87,9 +86,9 @@ public class MyOrder extends SugarRecord {
     public boolean sendOrder() {
 
         RequestBody rb;
-        LinkedHashMap<String, RequestBody> mp= new LinkedHashMap<>();
+        LinkedHashMap<String, RequestBody> mp = new LinkedHashMap<>();
 
-        rb = RequestBody.create(MediaType.parse("text/plain"), String.valueOf((int)OrderProducts.getBoxSumm()));
+        rb = RequestBody.create(MediaType.parse("text/plain"), String.valueOf((int) OrderProducts.getBoxSumm()));
         mp.put("price", rb);
 
         rb = RequestBody.create(MediaType.parse("text/plain"), "1");
@@ -118,45 +117,29 @@ public class MyOrder extends SugarRecord {
             if (product != null) {
 
                 rb = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(product.extid));
-                mp.put("products["+ String.valueOf(i)+"][product_id]", rb);
+                mp.put("products[" + String.valueOf(i) + "][product_id]", rb);
 
                 rb = RequestBody.create(MediaType.parse("text/plain"), String.valueOf(p.amount));
-                mp.put("products["+ String.valueOf(i)+"][amount]", rb);
+                mp.put("products[" + String.valueOf(i) + "][amount]", rb);
 
             }
         }
-
-
-//        Map<String, String> params = new HashMap<String, String>();
-//
-//        params.put("price", String.valueOf(OrderProducts.getBoxSumm()));
-//        params.put("number_person", "1");
-//        params.put("payment_type", "cash");
-//        params.put("delivery", "yes");
-//        params.put("client[name]", this.clientname);
-//        params.put("client[phone]", this.clientphone);
-//        params.put("client[address]", this.clientaddress);
-//
-//        List<OrderProducts> orderProducts = OrderProducts.getOrderProductsNew();
-//        for (int i = 0; i < orderProducts.size(); i++) {
-//            OrderProducts p = orderProducts.get(i);
-//
-//            Product product = Product.getProductById(p.productid);
-//            if (product != null) {
-//
-//                params.put("products["+ String.valueOf(i)+"][product_id]", String.valueOf(product.extid));
-//                params.put("products["+ String.valueOf(i)+"][amount]", String.valueOf(p.amount));
-//            }
-//        }
-
-
 
         Call<ResponseBody> call = intface.SendOrder(mp);
 
         call.enqueue(new Callback<ResponseBody>() {
             @Override
             public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-                Log.v("Upload", "success");
+
+                if (response.isSuccessful()) {
+                    Map<String, String> map = gson.fromJson(response.toString(), Map.class);
+
+                    for (Map.Entry e : map.entrySet()) {
+                        System.out.println(e.getKey() + " " + e.getValue());
+                        Log.e("Delivery message:", e.getKey() + " " + e.getValue());
+                    }
+
+                }
             }
 
             @Override
@@ -165,38 +148,31 @@ public class MyOrder extends SugarRecord {
             }
         });
 //        try {
-//            ResponseBody<Object> resp = null;
-//            resp = call.execute();
-//
-//            if(resp.isSuccessful()) {
-//                Map<String, String> map = gson.fromJson(resp.body().toString(), Map.class);
+//            retrofit2.Response<Object> response = call.execute();
+//            if(response.isSuccessful()) {
+//                Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
 //                for(Map.Entry e : map.entrySet()){
 //                    System.out.println(e.getKey()+ " " + e.getValue());
 //                }
+//            }
+        //Response<ResponseBody> response = call.execute();
+        //String response = call.execute().body().toString();
+
+//            retrofit2.Response<ResponseBody> response = call.execute();
 //
-//                return true;
+//            if(response.isSuccessful()) {
+//                Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
+//                for(Map.Entry e : map.entrySet()){
+//                    System.out.println(e.getKey()+ " " + e.getValue());
+//                }
+
+        return true;
 //            }
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
 
-//        try {
-//            retrofit2.Response<Object> resp = null;
-//            resp = call.execute();
-//
-//            if(resp.isSuccessful()) {
-//                Map<String, String> map = gson.fromJson(resp.body().toString(), Map.class);
-//                for(Map.Entry e : map.entrySet()){
-//                    System.out.println(e.getKey()+ " " + e.getValue());
-//                }
-//
-//                return true;
-//            }
-//        } catch (IOException e) {
-//            e.printStackTrace();
-//        }
-
-        return false;
+        //return false;
 
     }
 

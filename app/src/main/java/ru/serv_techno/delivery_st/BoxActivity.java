@@ -166,14 +166,16 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
         }
 
 
-        boolean res = newOrder.sendOrder();
+        //boolean res = newOrder.sendOrder();
+        newOrder.sendOrder();
 
-        if (res) {
+        //if (res) {
+            TextMessage = "Заказ принят! Наш менеджер свяжется с Вами! =)";
             return true;
-        }
-
-        TextMessage = "Не удалось отправить заказ! Повторите попытку позже";
-        return false;
+//        }
+//
+//        TextMessage = "Не удалось отправить заказ! Повторите попытку позже";
+//        return false;
     }
 
     public void setDefaultStatus(){

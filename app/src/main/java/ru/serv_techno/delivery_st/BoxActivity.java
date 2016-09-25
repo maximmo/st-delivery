@@ -1,6 +1,7 @@
 package ru.serv_techno.delivery_st;
 
 import android.app.DialogFragment;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -12,6 +13,9 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 import android.view.MenuItem;
+
+import java.io.IOException;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -41,12 +45,12 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
         lvBoxOrderProducts.setAdapter(boxAdapter);
         setTitle("Корзина");
 
-        lvBoxOrderProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            public void onItemClick(AdapterView<?> parent, View view,
-                                    int position, long id) {
-                RefreshBoxSumm();
-            }
-        });
+//        lvBoxOrderProducts.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//            public void onItemClick(AdapterView<?> parent, View view,
+//                                    int position, long id) {
+//                RefreshBoxSumm();
+//            }
+//        });
 
         btnSend = (Button) findViewById(R.id.btn_make_order);
         btnSend.setOnClickListener(this);
@@ -92,7 +96,7 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
             if(DialogID == SEND_ORDER_DIALOG){
 
                 boolean res = CreateOrder();
-                if(res==false){
+                if(!res){
                     Snackbar mSnackbar = Snackbar.make(btnClearBox, TextMessage, Snackbar.LENGTH_SHORT);
                     View snackbarView = mSnackbar.getView();
                     snackbarView.setBackgroundResource(R.color.SnackbarBgRed);
@@ -100,11 +104,29 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
 
                     RefreshBoxSumm();
                 }
+                else{
+                    Snackbar mSnackbar = Snackbar.make(btnSend, "Заказ отправлен! Менеджер свяжется с Вами для уточнения деталей =)", Snackbar.LENGTH_LONG);
+                    View snackbarView = mSnackbar.getView();
+                    snackbarView.setBackgroundResource(R.color.SnackbarBg);
+                    mSnackbar.show();
+
+                    setDefaultStatus();
+                }
             }
         }
     }
 
-    public boolean CreateOrder(){
+    public boolean CreateOrder() {
+
+        int extid=0;
+        float summ=OrderProducts.getBoxSumm();
+
+        Date date = new Date();
+        //long createdat = date.getTime();
+        long createdat = System.currentTimeMillis()/1000;
+
+        int numberperson=1;
+        int delivery=1;
 
         String personName = PersonName.getText().toString();
         if(personName.equals("")){
@@ -124,21 +146,34 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
             return false;
         }
 
-        //Order newOrder = new Order(0, );
-//        newOrder.save();
-//        boolean res = newOrder.sendOrder();
-//        if(res = true){
+        List<OrderProducts> orderProducts = OrderProducts.getOrderProductsNew();
+        if(orderProducts.size()==0){
+            TextMessage = "Корзина пуста!";
+            return false;
+        }
+
+        MyOrder newOrder = new MyOrder(extid, summ, createdat, numberperson, delivery, personName, personPhone, personAddress);
+        try{
+            newOrder.save();
+            for (int i=0;i<orderProducts.size();i++){
+                OrderProducts p = orderProducts.get(i);
+                p.setOrderid(newOrder.getId());
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+            TextMessage = "Ошибка при сохранении заказа: " + e.toString();
+            return false;
+        }
 
 
-            Snackbar mSnackbar = Snackbar.make(btnSend, "Заказ отправлен! Менеджер свяжется с Вами для уточнения деталей =)", Snackbar.LENGTH_LONG);
-            View snackbarView = mSnackbar.getView();
-            snackbarView.setBackgroundResource(R.color.SnackbarBg);
-            mSnackbar.show();
+        boolean res = newOrder.sendOrder();
 
-            setDefaultStatus();
-        return true;
-        //}
+        if (res) {
+            return true;
+        }
 
+        TextMessage = "Не удалось отправить заказ! Повторите попытку позже";
+        return false;
     }
 
     public void setDefaultStatus(){

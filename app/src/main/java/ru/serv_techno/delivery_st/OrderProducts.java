@@ -11,12 +11,12 @@ public class OrderProducts extends SugarRecord{
     int extid;
     int productid;
     int amount;
-    int orderid;
+    long orderid;
 
     public OrderProducts() {
     }
 
-    public OrderProducts(int extid, int productid, int amount, int orderid) {
+    public OrderProducts(int extid, int productid, int amount, long orderid) {
         this.extid = extid;
         this.productid = productid;
         this.amount = amount;
@@ -32,7 +32,7 @@ public class OrderProducts extends SugarRecord{
         this.save();
     }
 
-    public void setOrderid(int _orderid){
+    public void setOrderid(long _orderid){
         this.orderid = _orderid;
         this.save();
     }

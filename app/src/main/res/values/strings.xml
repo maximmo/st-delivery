@@ -9,6 +9,7 @@
     <string name="main_menu_item_exit">Выход</string>
     <string name="drawer_open">Test1</string>
     <string name="drawer_close">Test2</string>
+    <string name="base_url">http://admin.serv-techno.ru</string>
 
 
 </resources>

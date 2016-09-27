@@ -60,15 +60,6 @@ public class MyOrder extends SugarRecord {
     String clientphone;
     String clientaddress;
 
-
-    private static Gson gson = new GsonBuilder().create();
-    private static Retrofit retrofit = new Retrofit.Builder()
-            .addConverterFactory(GsonConverterFactory.create(gson))
-            .baseUrl("http://admin.serv-techno.ru")
-            .build();
-    private static APIv1 intface = retrofit.create(APIv1.class);
-
-
     public MyOrder() {
     }
 
@@ -83,7 +74,7 @@ public class MyOrder extends SugarRecord {
         this.clientaddress = clientaddress;
     }
 
-    public boolean sendOrder() {
+    public LinkedHashMap MakeRequestBodyOrder() {
 
         RequestBody rb;
         LinkedHashMap<String, RequestBody> mp = new LinkedHashMap<>();
@@ -125,54 +116,54 @@ public class MyOrder extends SugarRecord {
             }
         }
 
-        Call<ResponseBody> call = intface.SendOrder(mp);
+        return mp;
+        //Call<ResponseBody> call = intface.SendOrder(mp);
 
-        call.enqueue(new Callback<ResponseBody>() {
-            @Override
-            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
-
-                if (response.isSuccessful()) {
-                    Map<String, String> map = gson.fromJson(response.toString(), Map.class);
-
-                    for (Map.Entry e : map.entrySet()) {
-                        System.out.println(e.getKey() + " " + e.getValue());
-                        Log.e("Delivery message:", e.getKey() + " " + e.getValue());
-                    }
-
-                }
-            }
-
-            @Override
-            public void onFailure(Call<ResponseBody> call, Throwable t) {
-                Log.e("Upload error:", t.getMessage());
-            }
-        });
-//        try {
-//            retrofit2.Response<Object> response = call.execute();
-//            if(response.isSuccessful()) {
-//                Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
-//                for(Map.Entry e : map.entrySet()){
-//                    System.out.println(e.getKey()+ " " + e.getValue());
+//        call.enqueue(new Callback<ResponseBody>() {
+//            @Override
+//            public void onResponse(Call<ResponseBody> call, retrofit2.Response<ResponseBody> response) {
+//
+//                if (response.isSuccessful()) {
+//                    Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
+//
+//                    for (Map.Entry e : map.entrySet()) {
+//                        System.out.println(e.getKey() + " " + e.getValue());
+//                        Log.e("Delivery message:", e.getKey() + " " + e.getValue());
+//                    }
+//
 //                }
 //            }
-        //Response<ResponseBody> response = call.execute();
-        //String response = call.execute().body().toString();
+//
+//            @Override
+//            public void onFailure(Call<ResponseBody> call, Throwable t) {
+//                Log.e("Upload error:", t.getMessage());
+//            }
+//        });
 
+
+
+//        try {
 //            retrofit2.Response<ResponseBody> response = call.execute();
 //
 //            if(response.isSuccessful()) {
+//                //response.body().toString()
+//                //ResponseBody responseBody = response.body();
+//
 //                Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
-//                for(Map.Entry e : map.entrySet()){
-//                    System.out.println(e.getKey()+ " " + e.getValue());
+//
+//                for (Map.Entry e : map.entrySet()) {
+//                    System.out.println(e.getKey() + " " + e.getValue());
+//                    Log.e("Delivery message:", e.getKey() + " " + e.getValue());
 //                }
-
-        return true;
+//                return true;
 //            }
+//
+//
 //        } catch (IOException e) {
 //            e.printStackTrace();
 //        }
-
-        //return false;
+//
+//        return false;
 
     }
 

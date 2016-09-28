@@ -30,7 +30,7 @@ import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
 
-    public static String LOG_TAG = "deliveryST_log";
+    private static final String LOG_TAG = "deliveryST_log";
     private Bitmap splashBG;
     private ImageView imageView;
 

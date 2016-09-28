@@ -265,7 +265,7 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
 
     class SendOrder extends AsyncTask<LinkedHashMap, Void, Map>{
 
-        Map<String, Object> hmap = new HashMap<String, Object>();
+        public Map<String, Object> hmap = new HashMap<String, Object>();
 
         @Override
         protected void onPreExecute() {
@@ -294,8 +294,11 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
                 Object message = map.get("message");
                 Object extid = map.get("extid");
 
-                Boolean r = Boolean.getBoolean(res.toString());
-                if(r = true){
+                String StringRes = res.toString();
+
+                boolean BoolRes = Boolean.parseBoolean(StringRes);
+
+                if(BoolRes == true){
 
                     List<OrderProducts> orderProducts = OrderProducts.getOrderProductsNew();
                     for(OrderProducts op : orderProducts){
@@ -305,7 +308,7 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
                     showMySnackbar(message.toString(), true);
                 }
                 else {
-                    TextMessage = "Отправка заказа завершилась с ошибкой: " + message.toString();
+                    TextMessage = "Ошибка: " + message.toString();
                     showMySnackbar(TextMessage, false);
                 }
             }
@@ -314,40 +317,74 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
         @Override
         protected Map doInBackground(LinkedHashMap... params) {
 
+            String extid = "0";
             Call<ResponseBody> call = intface.SendOrder(params[0]);
+            ResponseBody responseBody;
+            ResponseBody errorBody;
 
             try {
                 retrofit2.Response<ResponseBody> response = call.execute();
 
-                if (response.isSuccessful()) {
-                    //response.body().toString()
-                    //ResponseBody responseBody = response.body();
+                //if (response.isSuccessful()) {
 
-                    //Map<String, String> map = gson.fromJson(response.body().toString(), Map.class);
+                    if(response.code()==200||response.code()==201){
 
-//                    for (Map.Entry e : map.entrySet()) {
-//                        System.out.println(e.getKey() + " " + e.getValue());
-//                        Log.e("Delivery message:", e.getKey() + " " + e.getValue());
-//                    }
-                    hmap.put("result", true);
-                    hmap.put("message", "Заказ принят! Наш менеджер свяжется с Вами! =)");
-                    hmap.put("extid", "1");
+                        responseBody = response.body();
+
+                        hmap.put("message", "Заказ принят! Наш менеджер свяжется с Вами! =)");
+                        hmap.put("result", true);
+                        hmap.put("extid", extid);
+
+                        String MyMessage = responseBody.string();
+
+                        Map<String, String> map = gson.fromJson(MyMessage, Map.class);
+
+                        for (Map.Entry e : map.entrySet()) {
+                            if(e.getKey().equals("id")){
+                                extid = e.getValue().toString();
+                                float fextid = Float.parseFloat(extid);
+                                int IntExtId = (int)fextid;
+                                extid = String.valueOf(IntExtId);
+
+                                hmap.put("extid", extid);
+                                hmap.put("message", "Ваш заказ принят! Номер заказа: " + extid);
+                            }
+                        }
+
+                    }
+                    else {
+                        errorBody = response.errorBody();
+
+                        hmap.put("result", false);
+                        hmap.put("message", "Ошибка: ");
+                        hmap.put("extid", extid);
+
+                        String MyMessage = errorBody.string();
+
+                        Map<String, String> map = gson.fromJson(MyMessage, Map.class);
+
+                        for (Map.Entry e : map.entrySet()) {
+                            if(e.getKey().equals("message")){
+                                hmap.put("message", e.getValue().toString());
+                            }
+                        }
+                    }
 
                     return hmap;
-                }
+                //}
 
 
             } catch (IOException e) {
                 e.printStackTrace();
 
                 hmap.put("result", false);
-                hmap.put("message", "Ошибка при отправке заказа!");
+                hmap.put("message", e.getMessage());
                 hmap.put("extid", "0");
 
                 return hmap;
             }
 
-            return null;
+            //return null;
         }
 
         @Override

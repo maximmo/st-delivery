@@ -1,6 +1,8 @@
 package ru.serv_techno.delivery_st;
 
 import android.app.DialogFragment;
+import android.app.Notification;
+import android.app.PendingIntent;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -8,6 +10,8 @@ import android.os.AsyncTask;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.NotificationManagerCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
@@ -30,6 +34,7 @@ import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.ListIterator;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 
 import okhttp3.RequestBody;
 import okhttp3.ResponseBody;
@@ -85,7 +90,6 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
         btnClearBox.setOnClickListener(this);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setHomeButtonEnabled(true);
 
         PersonName = (EditText) findViewById(R.id.PersonName);
@@ -154,15 +158,33 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
         mSnackbar.show();
     }
 
+    public void showMyNotification(String textMessage){
+
+        int NOTIFY_ID = 101;
+
+        Intent notificationIntent = new Intent(this, products_activity.class);
+        PendingIntent contentIntent = PendingIntent.getActivity(this,
+                0, notificationIntent,
+                PendingIntent.FLAG_CANCEL_CURRENT);
+
+        Notification.Builder builder = new Notification.Builder(this);
+        // оставим только самое необходимое
+        builder.setContentIntent(contentIntent)
+                .setSmallIcon(R.drawable.icon_snoopy)
+                .setContentTitle("Snoopy`s Sandwitch Club")
+                .setContentText(textMessage); // Текст уведомления
+
+        Notification notification = builder.build();
+
+        NotificationManagerCompat notificationManager = NotificationManagerCompat.from(this);
+        notificationManager.notify(NOTIFY_ID, notification);
+    }
+
     public void CreateOrder() {
 
         int extid=0;
         float summ=OrderProducts.getBoxSumm();
-
-        Date date = new Date();
-        //long createdat = date.getTime();
         long createdat = System.currentTimeMillis()/1000;
-
         int numberperson=1;
         int delivery=1;
 
@@ -207,26 +229,18 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
             return;
         }
 
-
-        //boolean res = newOrder.sendOrder();
         LinkedHashMap mp = newOrder.MakeRequestBodyOrder();
 
         if(mp!=null) {
             SendOrder so = new SendOrder();
             so.execute(mp);
         }
-        //if (res) {
-//            TextMessage = "Заказ принят! Наш менеджер свяжется с Вами! =)";
-//            return;
-//        }
-//
-//        TextMessage = "Не удалось отправить заказ! Повторите попытку позже";
-//        return false;
+
     }
 
-    public void setDefaultStatus(){
+    public void setDefaultStatus() throws InterruptedException {
 
-        //onBackPressed();
+        onBackPressed();
     }
 
     public void RefreshBoxSumm(){
@@ -305,7 +319,13 @@ public class BoxActivity extends AppCompatActivity implements View.OnClickListen
                         op.setExtid(Integer.valueOf(extid.toString()));
                     }
 
-                    showMySnackbar(message.toString(), true);
+                    //showMySnackbar(message.toString(), true);
+                    showMyNotification(message.toString());
+                    try {
+                        setDefaultStatus();
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
                 }
                 else {
                     TextMessage = "Ошибка: " + message.toString();

@@ -14,20 +14,23 @@
 
         <ImageView
             android:id="@+id/ItemBoxImage"
-            android:layout_width="60sp"
-            android:layout_height="50sp"
+            android:layout_width="100sp"
+            android:layout_height="80sp"
+            android:scaleType="fitCenter"
             android:layout_marginLeft="@dimen/activity_horizontal_margin"
-            android:src="@drawable/icon_snoopy" />
+            android:src="@drawable/icon_snoopy"
+            android:layout_weight="1" />
 
         <LinearLayout
             android:id="@+id/linearLayout"
-            android:layout_width="match_parent"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="2sp"
             android:layout_marginRight="5sp"
             android:layout_marginTop="2sp"
             android:layout_toRightOf="@id/ItemBoxImage"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:layout_weight="6">
 
             <TextView
                 android:id="@+id/ItemBoxName"
@@ -35,58 +38,64 @@
                 android:layout_height="wrap_content"
                 android:text="Unnamed"
                 android:textAppearance="?android:attr/textAppearanceMedium"
-                android:textSize="16dp" />
+                android:textSize="14dp" />
 
             <TextView
                 android:id="@+id/ItemBoxPrice"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="0"
-                android:textSize="15dp" />
+                android:textSize="12dp" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:gravity="right"
-                android:layout_marginRight="@dimen/activity_horizontal_margin">
 
-                <Button
-                    android:id="@+id/btnMinus"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:text="-"
-                    android:textSize="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_vertical|center|center_horizontal"
-                    android:background="@android:color/background_light"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin" />
-
-                <TextView
-                    android:id="@+id/textViewAmount"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:text="1"
-                    android:textSize="15dp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center|center_horizontal"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin" />
-
-                <Button
-                    android:id="@+id/btnPlus"
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:text="+"
-                    android:textSize="10dp"
-                    android:layout_gravity="center_horizontal"
-                    android:gravity="center_vertical|center|center_horizontal"
-                    android:background="@android:color/background_light"
-                    android:textColor="@android:color/holo_red_dark"
-                    android:textStyle="bold"
-                    android:layout_marginBottom="@dimen/activity_vertical_margin" />
-            </LinearLayout>
         </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_toRightOf="@id/linearLayout"
+            android:layout_marginRight="@dimen/activity_horizontal_margin"
+            android:layout_weight="1"
+            android:layout_gravity="center_vertical|right"
+            android:gravity="center|right">
+
+            <Button
+                android:id="@+id/btnMinus"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:text="-"
+                android:textSize="10sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/background_light"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/textViewAmount"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:text="1"
+                android:textSize="15sp"
+                android:layout_gravity="center_horizontal"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center" />
+
+            <Button
+                android:id="@+id/btnPlus"
+                android:layout_width="25dp"
+                android:layout_height="25dp"
+                android:text="+"
+                android:textSize="10sp"
+                android:layout_gravity="center_horizontal"
+                android:background="@android:color/background_light"
+                android:textColor="@android:color/holo_red_dark"
+                android:textStyle="bold"
+                android:layout_marginBottom="@dimen/activity_vertical_margin"
+                android:gravity="center" />
+        </LinearLayout>
+
     </LinearLayout>
 </LinearLayout>

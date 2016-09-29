@@ -12,6 +12,6 @@
         android:id="@+id/lwCatalogItem"
         android:textColor="@color/abc_primary_text_material_dark"
         android:paddingLeft="5sp"
-        android:paddingTop="10sp"
-        android:paddingBottom="10sp" />
+        android:paddingTop="7sp"
+        android:paddingBottom="7sp" />
 </LinearLayout>

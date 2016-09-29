@@ -39,11 +39,6 @@ public class MainViewAdapter extends BaseAdapter implements View.OnClickListener
                 .getSystemService(Context.LAYOUT_INFLATER_SERVICE);
     }
 
-//    @Override
-//    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//        Toast.makeText(ctx, "проверка", Toast.LENGTH_SHORT).show();
-//    }
-
     @Override
     public int getCount() {
         return objects.size();

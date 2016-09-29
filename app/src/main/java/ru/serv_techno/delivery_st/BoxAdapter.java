@@ -77,7 +77,6 @@ public class BoxAdapter extends BaseAdapter implements View.OnClickListener {
         btnPlus.setTag(position);
 
         if (p.imagelink != null) {
-            //new DownloadImageTask((ImageView) view.findViewById(R.id.ItemBoxImage)).execute(p.imagelink);
             Picasso.with(ctx.getApplicationContext())
                     .load(p.bigImageLink)
                     .placeholder(R.drawable.icon_snoopy)

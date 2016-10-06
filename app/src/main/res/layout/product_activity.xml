@@ -22,10 +22,13 @@
             android:id="@+id/fab"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|center"
+            android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/activity_horizontal_margin"
             android:background="@color/colorPrimary"
-            android:src="@drawable/my_box"/>
+            android:src="@android:drawable/ic_menu_edit" />
+
+        <include layout="@layout/fab_menu_layout" />
+
     </android.support.design.widget.CoordinatorLayout>
 
     <RelativeLayout
@@ -48,13 +51,12 @@
             android:layout_width="240dp"
             android:layout_height="match_parent"
             android:layout_gravity="start"
+            android:layout_marginTop="130dp"
             android:background="#111"
             android:choiceMode="singleChoice"
             android:divider="@android:color/transparent"
-            android:dividerHeight="0dp"
-            android:layout_marginTop="130dp"></ListView>
+            android:dividerHeight="0dp"></ListView>
     </RelativeLayout>
-
 
 
 </android.support.v4.widget.DrawerLayout>
